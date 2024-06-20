@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:id="@+id/main"
+    android:fillViewport="true">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/cinza"
+        android:layout_height="match_parent"
+        tools:context=".Views.SingIn">
+
+
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/contiD"
+            android:layout_marginTop="420dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/white"
+            android:textColorHint= "@color/ciano"
+            app:helperTextTextColor="@color/ciano"
+            app:boxStrokeColor="@color/black"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ediId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:textColor="@color/black"
+                android:layout_marginEnd="20dp"
+                android:hint="      Id Usuario"
+                android:inputType="textEmailAddress"
+                android:textCursorDrawable="@drawable/color_cursor"
+                >
+
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/contSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            app:hintTextColor="@color/white"
+            android:textColorHint= "@color/ciano"
+            app:helperTextTextColor="@color/ciano"
+            app:boxStrokeColor="@color/black"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:hint="      telefone"
+                android:textColorHint="@color/white"
+                android:textColor="@color/black"
+                android:inputType="number|numberPassword"
+                android:textCursorDrawable="@drawable/color_cursor"
+
+                >
+
+
+            </com.google.android.material.textfield.TextInputEditText>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btlogar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp"
+            android:backgroundTint="@color/ciano"
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

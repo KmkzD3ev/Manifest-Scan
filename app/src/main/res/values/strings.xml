@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">teste</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">fast Manifests</string>
+    <string name="nav_header_subtitle">zenitech@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configurações</string>
+    <string name="action_color">#00796B</string>
+    <string name="flash_toggle_description">Descrição do botão de toggle do flash</string>
+    <string name="turn_off_flashlight">liga/desliga</string>
+
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Notas</string>
+    <string name="menu_slideshow">Manifestos</string>
+</resources>
