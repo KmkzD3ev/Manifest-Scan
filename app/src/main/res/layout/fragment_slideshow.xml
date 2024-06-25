@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,7 +10,19 @@
     <LinearLayout
         android:id="@+id/imglgt"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="380dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="56dp"
+            android:src="@drawable/leitorphone_jpg">
+
+        </ImageView>
 
 
 
@@ -33,7 +46,7 @@
         android:id="@+id/btn_send"
         android:layout_width="150dp"
         android:layout_height="65dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="48dp"
         android:text="Proximo"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,9 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
-        android:text="Barcode Result"
+        android:text="Codigo do Manifesto"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

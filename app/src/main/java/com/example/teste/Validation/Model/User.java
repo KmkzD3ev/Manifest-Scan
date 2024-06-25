@@ -1,15 +1,15 @@
 package com.example.teste.Validation.Model;
 
 public class User {
-    private String id;
+    private int id;
     private String phoneNumber;
 
-    public User(String id, String phoneNumber) {
+    public User(int id, String phoneNumber) {
         this.id = id;
         this.phoneNumber = phoneNumber;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

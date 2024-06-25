@@ -1,68 +1,120 @@
 package com.example.teste.Validation.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class UserResponse {
-    private int codigo_condutor;
-    private String nome_condutor;
-    private String cpf_condutor;
-    private String fone_condutor;
-    private int usa_app;
-    private int ativo_condutor;
-    private int codigo_validacao;
+    @SerializedName("codigo_condutor")
+    private int codigoCondutor;
+
+    @SerializedName("nome_condutor")
+    private String nomeCondutor;
+
+    @SerializedName("cpf_condutor")
+    private String cpfCondutor;
+
+    @SerializedName("fone_condutor")
+    private String foneCondutor;
+
+    @SerializedName("usa_app")
+    private int usaApp;
+
+    @SerializedName("ativo_condutor")
+    private int ativoCondutor;
+
+    @SerializedName("codigo_validacao")
+    private int codigoValidacao;
+
+    @SerializedName("status")
+    private String status;
+
+    @SerializedName("message")
+    private String message;
 
     // Getters and Setters
-    public int getCodigo_condutor() {
-        return codigo_condutor;
+    public int getCodigoCondutor() {
+        return codigoCondutor;
     }
 
-    public void setCodigo_condutor(int codigo_condutor) {
-        this.codigo_condutor = codigo_condutor;
+    public void setCodigoCondutor(int codigoCondutor) {
+        this.codigoCondutor = codigoCondutor;
     }
 
-    public String getNome_condutor() {
-        return nome_condutor;
+    public String getNomeCondutor() {
+        return nomeCondutor;
     }
 
-    public void setNome_condutor(String nome_condutor) {
-        this.nome_condutor = nome_condutor;
+    public void setNomeCondutor(String nomeCondutor) {
+        this.nomeCondutor = nomeCondutor;
     }
 
-    public String getCpf_condutor() {
-        return cpf_condutor;
+    public String getCpfCondutor() {
+        return cpfCondutor;
     }
 
-    public void setCpf_condutor(String cpf_condutor) {
-        this.cpf_condutor = cpf_condutor;
+    public void setCpfCondutor(String cpfCondutor) {
+        this.cpfCondutor = cpfCondutor;
     }
 
-    public String getFone_condutor() {
-        return fone_condutor;
+    public String getFoneCondutor() {
+        return foneCondutor;
     }
 
-    public void setFone_condutor(String fone_condutor) {
-        this.fone_condutor = fone_condutor;
+    public void setFoneCondutor(String foneCondutor) {
+        this.foneCondutor = foneCondutor;
     }
 
-    public int getUsa_app() {
-        return usa_app;
+    public int getUsaApp() {
+        return usaApp;
     }
 
-    public void setUsa_app(int usa_app) {
-        this.usa_app = usa_app;
+    public void setUsaApp(int usaApp) {
+        this.usaApp = usaApp;
     }
 
-    public int getAtivo_condutor() {
-        return ativo_condutor;
+    public int getAtivoCondutor() {
+        return ativoCondutor;
     }
 
-    public void setAtivo_condutor(int ativo_condutor) {
-        this.ativo_condutor = ativo_condutor;
+    public void setAtivoCondutor(int ativoCondutor) {
+        this.ativoCondutor = ativoCondutor;
     }
 
-    public int getCodigo_validacao() {
-        return codigo_validacao;
+    public int getCodigoValidacao() {
+        return codigoValidacao;
     }
 
-    public void setCodigo_validacao(int codigo_validacao) {
-        this.codigo_validacao = codigo_validacao;
+    public void setCodigoValidacao(int codigoValidacao) {
+        this.codigoValidacao = codigoValidacao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "codigoCondutor=" + codigoCondutor +
+                ", nomeCondutor='" + nomeCondutor + '\'' +
+                ", cpfCondutor='" + cpfCondutor + '\'' +
+                ", foneCondutor='" + foneCondutor + '\'' +
+                ", usaApp=" + usaApp +
+                ", ativoCondutor=" + ativoCondutor +
+                ", codigoValidacao=" + codigoValidacao +
+                ", status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }
