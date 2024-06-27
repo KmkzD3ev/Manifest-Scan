@@ -7,10 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.teste.Validation.Model.Nota;
+import com.example.teste.Validation.Model.NotaDataModel;
 import com.example.teste.Validation.Model.User;
+import com.example.teste.Validation.Model.UserDataModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3; // Incrementar a versão para resetar o banco de dados
+    private static final int DATABASE_VERSION = 4; // Incrementar a versão para resetar o banco de dados
     private static final String DATABASE_NAME = "UserManager.db";
 
     // Tabela de usuários
@@ -33,6 +38,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_NOTA_WEIGHT = "nota_weight";
     private static final String COLUMN_NOTA_VALUE = "nota_value";
     private static final String COLUMN_NOTA_CHAVE_CONTINGENCIA = "nota_chave_contingencia";
+    private static final String COLUMN_USER_ID = "user_id"; // Nova coluna para referenciar o usuário
 
     // Tabela de manifestos
     private static final String TABLE_MANIFESTOS = "manifestos";
@@ -46,6 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Criação da tabela de usuários
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS +
                 "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY," +
@@ -55,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")";
         db.execSQL(CREATE_USERS_TABLE);
 
+        // Criação da tabela de códigos de barras
         String CREATE_BARCODES_TABLE = "CREATE TABLE " + TABLE_BARCODES +
                 "(" +
                 COLUMN_BARCODE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -63,16 +71,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")";
         db.execSQL(CREATE_BARCODES_TABLE);
 
+        // Criação da tabela de notas
         String CREATE_NOTAS_TABLE = "CREATE TABLE " + TABLE_NOTAS +
                 "(" +
                 COLUMN_NOTA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_NOTA_BARCODE + " TEXT," +
                 COLUMN_NOTA_WEIGHT + " TEXT," +
                 COLUMN_NOTA_VALUE + " TEXT," +
-                COLUMN_NOTA_CHAVE_CONTINGENCIA + " TEXT" +
+                COLUMN_NOTA_CHAVE_CONTINGENCIA + " TEXT," +
+                COLUMN_USER_ID + " INTEGER," + // Adiciona a referência do usuário
+                "FOREIGN KEY(" + COLUMN_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_ID + ")" +
                 ")";
         db.execSQL(CREATE_NOTAS_TABLE);
 
+        // Criação da tabela de manifestos
         String CREATE_MANIFESTOS_TABLE = "CREATE TABLE " + TABLE_MANIFESTOS +
                 "(" +
                 COLUMN_MANIFESTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -84,6 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Recria todas as tabelas
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_BARCODES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTAS);
@@ -120,7 +133,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-
     // Atualiza o status de login de um usuário
     public void setLoggedIn(int id, boolean isLoggedIn) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -156,14 +168,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    // Insere uma nova nota na tabela de notas
-    public long insertNota(Nota nota) {
+    // Insere uma nova nota na tabela de notas com referência ao usuário
+    public long insertNota(Nota nota, int userId) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NOTA_BARCODE, nota.getBarcode());
-        values.put(COLUMN_NOTA_WEIGHT, nota.getWeight());
-        values.put(COLUMN_NOTA_VALUE, nota.getValue());
-        values.put(COLUMN_NOTA_CHAVE_CONTINGENCIA, nota.getChaveContingencia());
+        values.put(COLUMN_NOTA_BARCODE, nota.getChave());
+        values.put(COLUMN_NOTA_WEIGHT, nota.getPeso());
+        values.put(COLUMN_NOTA_VALUE, nota.getValor());
+        values.put(COLUMN_NOTA_CHAVE_CONTINGENCIA, nota.getChave_Contingencia());
+        values.put(COLUMN_USER_ID, userId); // Adiciona o user_id
         long id = db.insert(TABLE_NOTAS, null, values);
         db.close();
         return id;
@@ -203,4 +216,79 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return null;
     }
+
+    // Método para obter o ID do usuário logado
+    public int getLoggedInUserId() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID};
+        String selection = COLUMN_IS_LOGGED_IN + " = ?";
+        String[] selectionArgs = {"1"};
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            int userId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+            cursor.close();
+            db.close();
+            return userId;
+        }
+        cursor.close();
+        db.close();
+        return -1; // Retornar -1 se nenhum usuário estiver logado
+    }
+
+    public UserDataModel getLoggedInUserDetails() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_ID, COLUMN_PHONE_NUMBER, COLUMN_VALIDATION_CODE};
+        String selection = COLUMN_IS_LOGGED_IN + " = ?";
+        String[] selectionArgs = {"1"};
+        Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+            String phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE_NUMBER));
+            String validationCode = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_VALIDATION_CODE)); // Alterado para String
+            cursor.close();
+            db.close();
+            return new UserDataModel(id, phoneNumber, validationCode);
+        }
+        cursor.close();
+        db.close();
+        return null;
+    }
+    // Método para obter o último manifesto do usuário logado
+    public String getLastManifestoBarcode() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_MANIFESTO_BARCODE};
+        String orderBy = COLUMN_MANIFESTO_ID + " DESC";
+        Cursor cursor = db.query(TABLE_MANIFESTOS, columns, null, null, null, null, orderBy, "1");
+        if (cursor.moveToFirst()) {
+            String barcode = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_MANIFESTO_BARCODE));
+            cursor.close();
+            db.close();
+            return barcode;
+        }
+        cursor.close();
+        db.close();
+        return null;
+    }
+
+    // Método para obter todas as notas do usuário logado
+    public List<NotaDataModel> getAllNotas(int userId) {
+        List<NotaDataModel> notas = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {COLUMN_NOTA_BARCODE, COLUMN_NOTA_WEIGHT, COLUMN_NOTA_VALUE, COLUMN_NOTA_CHAVE_CONTINGENCIA};
+        String selection = COLUMN_USER_ID + " = ?";
+        String[] selectionArgs = {String.valueOf(userId)};
+        Cursor cursor = db.query(TABLE_NOTAS, columns, selection, selectionArgs, null, null, null);
+        while (cursor.moveToNext()) {
+            String chave = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTA_BARCODE));
+            String peso = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTA_WEIGHT));
+            String valor = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTA_VALUE));
+            String chave_contingencia = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTA_CHAVE_CONTINGENCIA));
+            NotaDataModel nota = new NotaDataModel(chave, peso, valor, chave_contingencia);
+            notas.add(nota);
+        }
+        cursor.close();
+        db.close();
+        return notas;
+    }
+
 }

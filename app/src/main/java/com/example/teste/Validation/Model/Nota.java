@@ -1,25 +1,25 @@
 package com.example.teste.Validation.Model;
 
 public class Nota {
-    private int id; // Adicionado para identificar a nota
-    private String barcode;
-    private String weight;
-    private String value;
-    private String chaveContingencia; // Adicionado para contingência
+    private int id;
+    private String chave;
+    private String peso;
+    private String valor;
+    private String chave_Contingencia;
 
     // Construtor padrão
-    public Nota(String barcode, String weight, String value) {
-        this.barcode = barcode;
-        this.weight = weight;
-        this.value = value;
+    public Nota(String chave, String peso, String valor) {
+        this.chave = chave;
+        this.peso = peso;
+        this.valor = valor;
     }
 
     // Construtor para contingência
-    public Nota(String barcode, String weight, String value, String chaveContingencia) {
-        this.barcode = barcode;
-        this.weight = weight;
-        this.value = value;
-        this.chaveContingencia = chaveContingencia;
+    public Nota(String chave, String peso, String valor, String chave_Contingencia) {
+        this.chave = chave;
+        this.peso = peso;
+        this.valor = valor;
+        this.chave_Contingencia = chave_Contingencia;
     }
 
     // Getters e Setters
@@ -31,35 +31,35 @@ public class Nota {
         this.id = id;
     }
 
-    public String getBarcode() {
-        return barcode;
+    public String getChave() {
+        return chave;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setChave(String chave) {
+        this.chave = chave;
     }
 
-    public String getWeight() {
-        return weight;
+    public String getPeso() {
+        return peso;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
+    public void setPeso(String peso) {
+        this.peso = peso;
     }
 
-    public String getValue() {
-        return value;
+    public String getValor() {
+        return valor;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setValor(String valor) {
+        this.valor = valor;
     }
 
-    public String getChaveContingencia() {
-        return chaveContingencia;
+    public String getChave_Contingencia() {
+        return chave_Contingencia;
     }
 
-    public void setChaveContingencia(String chaveContingencia) {
-        this.chaveContingencia = chaveContingencia;
+    public void setChave_Contingencia(String chave_Contingencia) {
+        this.chave_Contingencia = chave_Contingencia;
     }
 }

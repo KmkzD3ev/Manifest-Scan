@@ -39,10 +39,10 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder
     @Override
     public void onBindViewHolder(@NonNull NotaViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Nota nota = notas.get(position);
-        holder.tvBarcode.setText(nota.getBarcode());
-        holder.tvWeight.setText(nota.getWeight());
-        holder.tvValue.setText(nota.getValue());
-        holder.tvChaveContingencia.setText(nota.getChaveContingencia());
+        holder.tvBarcode.setText(nota.getChave());
+        holder.tvWeight.setText(nota.getPeso());
+        holder.tvValue.setText(nota.getValor());
+        holder.tvChaveContingencia.setText(nota.getChave_Contingencia());
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
