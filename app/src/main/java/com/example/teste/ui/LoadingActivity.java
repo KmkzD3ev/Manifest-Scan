@@ -2,6 +2,8 @@ package com.example.teste.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -66,7 +68,14 @@ public class LoadingActivity extends AppCompatActivity {
         } else if (progress < 100) {
             textViewStage.setText("Processando...");
         } else {
-            textViewStage.setText("Concluído!");
+            progressBar.setVisibility(View.GONE); // Esconde a ProgressBar
+            textViewStage.setVisibility(View.GONE); // Esconde o texto de estágio
+
+            ImageView imageViewSmiley = findViewById(R.id.imageViewSmiley);
+            TextView textViewCompletion = findViewById(R.id.textViewCompletion);
+
+            imageViewSmiley.setVisibility(View.VISIBLE); // Mostra a carinha feliz
+            textViewCompletion.setVisibility(View.VISIBLE); // Mostra o texto "Tudo OK!"
         }
     }
 }

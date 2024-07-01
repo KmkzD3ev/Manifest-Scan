@@ -3,12 +3,12 @@ package com.example.teste.Validation.Model;
 public class UserDataModel {
     private int id;
     private String telefone;
-    private String codigoValidacao;
 
-    public UserDataModel(int id, String telefone, String codigoValidacao) {
+
+    public UserDataModel(int id, String telefone) {
         this.id = id;
         this.telefone = telefone;
-        this.codigoValidacao = codigoValidacao;
+
     }
 
     public int getId() {
@@ -19,7 +19,5 @@ public class UserDataModel {
         return telefone;
     }
 
-    public String getCodigoValidacao() {
-        return codigoValidacao;
-    }
+
 }

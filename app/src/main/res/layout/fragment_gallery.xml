@@ -8,27 +8,27 @@
     android:background="@color/cinza"
     tools:context=".ui.gallery.GalleryFragment">
 
+
     <Button
         android:id="@+id/btn_scan"
         android:layout_width="150dp"
         android:layout_height="65dp"
+        android:layout_marginBottom="16dp"
         android:text="Scanear Notas"
         android:textColor="@color/white"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_additional_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="56dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/enviar"
         android:backgroundTint="@color/ciano"
+        android:src="@drawable/enviar"
         app:layout_constraintBottom_toBottomOf="@id/btn_scan"
         app:layout_constraintStart_toEndOf="@id/btn_scan" />
 
@@ -38,8 +38,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/btn_scan"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="-3dp">
 
         <LinearLayout
             android:id="@+id/linearLayout"

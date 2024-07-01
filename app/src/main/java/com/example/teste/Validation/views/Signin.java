@@ -15,8 +15,8 @@ import com.example.teste.Validation.ViewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class Signin extends AppCompatActivity {
-    private UserViewModel userViewModel;
-    private DatabaseHelper databaseHelper;
+    public UserViewModel userViewModel;
+    public DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

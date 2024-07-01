@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.teste.Validation.Model.ManifestoDataModel;
 import com.example.teste.Validation.Model.Nota;
 import com.example.teste.Validation.Model.NotaDataModel;
 import com.example.teste.Validation.Model.User;
 import com.example.teste.Validation.Model.UserDataModel;
+import com.example.teste.Validation.Model.UserDataTransferModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,6 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
     // Verifica se algum usuário está logado
     public boolean isUserLoggedIn() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -237,17 +240,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public UserDataModel getLoggedInUserDetails() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {COLUMN_ID, COLUMN_PHONE_NUMBER, COLUMN_VALIDATION_CODE};
+        String[] columns = {COLUMN_ID, COLUMN_PHONE_NUMBER};
         String selection = COLUMN_IS_LOGGED_IN + " = ?";
         String[] selectionArgs = {"1"};
         Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
             String phoneNumber = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE_NUMBER));
-            String validationCode = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_VALIDATION_CODE)); // Alterado para String
+            // Alterado para String
             cursor.close();
             db.close();
-            return new UserDataModel(id, phoneNumber, validationCode);
+            return new UserDataModel(id, phoneNumber);
         }
         cursor.close();
         db.close();
@@ -289,6 +292,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return notas;
+    }
+
+    public UserDataTransferModel getUserDataTransferModel() {
+        int userId = getLoggedInUserId();
+        if (userId != -1) {
+            UserDataModel userDataModel = getLoggedInUserDetails();
+            String manifesto = getLastManifestoBarcode();
+            ManifestoDataModel manifestoDataModel = new ManifestoDataModel(manifesto);
+            List<NotaDataModel> notas = getAllNotas(userId);
+            return new UserDataTransferModel(userDataModel.getId(), userDataModel.getTelefone(), manifestoDataModel, notas);
+        }
+        return null;
     }
 
 }

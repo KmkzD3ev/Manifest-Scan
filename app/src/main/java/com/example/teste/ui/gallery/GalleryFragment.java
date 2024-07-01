@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +17,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.teste.Adapter.NotaAdapter;
+import com.example.teste.ApiAuth.ApiManager;
 import com.example.teste.Bd.DatabaseHelper;
 import com.example.teste.R;
-import com.example.teste.Validation.Model.ManifestoDataModel;
 import com.example.teste.Validation.Model.Nota;
 import com.example.teste.Validation.Model.NotaDataModel;
-import com.example.teste.Validation.Model.UserDataModel;
 import com.example.teste.Validation.Model.UserDataTransferModel;
 import com.example.teste.databinding.FragmentGalleryBinding;
 import com.example.teste.ui.BarcodeViewModel.BarcodeViewModel;
@@ -32,7 +30,6 @@ import com.example.teste.ui.LoadingActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -69,38 +66,52 @@ public class GalleryFragment extends Fragment {
             }
         });
 
+        // FloatingActionButton para ação adicional
         FloatingActionButton fabAdditionalAction = root.findViewById(R.id.fab_additional_action);
-
         fabAdditionalAction.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), LoadingActivity.class);
-            startActivity(intent);
             UserDataTransferModel usuarioData = getUserDataTransferModel(getContext());
 
             if (usuarioData != null) {
-                Log.d("UsuarioData", "id: " + usuarioData.getId());
-                Log.d("UsuarioData", "telefone: " + usuarioData.getTelefone());
-                Log.d("UsuarioData", "manifesto: " + usuarioData.getManifestoDataModel().getManifesto());
+                // Converte o objeto UserDataTransferModel para JSON (se necessário)
+                Gson gson = new Gson();
+                String userDataJson = gson.toJson(usuarioData);
 
-                for (Nota nota : usuarioData.getNotas()) {
-                    Log.d("NotaData", "chave: " + nota.getChave());
-                    Log.d("NotaData", "chave_contingencia: " + nota.getChave_Contingencia());
-                    Log.d("NotaData", "peso: " + nota.getPeso());
-                    Log.d("NotaData", "valor: " + nota.getValor());
+                // Logar os dados para depuração
+                Log.d("UsuarioData", "ID: " + usuarioData.getId());
+                Log.d("UsuarioData", "Telefone: " + usuarioData.getTelefone());
+                Log.d("UsuarioData", "Manifesto: " + (usuarioData.getManifestoDataModel() != null ? usuarioData.getManifestoDataModel().getManifesto() : "N/A"));
+
+                // Logar detalhes das notas
+                if (usuarioData.getNotas() != null && !usuarioData.getNotas().isEmpty()) {
+                    for (NotaDataModel nota : usuarioData.getNotas()) {
+                        Log.d("NotaData", "Chave: " + nota.getChave() + ", Chave_Contingência: " + nota.getChave_Contingencia() +
+                                ", Peso: " + nota.getPeso() + ", Valor: " + nota.getValor());
+                    }
+                } else {
+                    Log.d("NotaData", "Nenhuma nota disponível.");
                 }
 
-                // Para exibir o JSON formatado
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                String usuarioDataJson = gson.toJson(usuarioData);
-                Log.d("UsuarioDataJSON", usuarioDataJson);
-                System.out.println(usuarioDataJson);
+                // Chamada à API
+                ApiManager.testApiCall(getContext(), usuarioData.getId(), usuarioData.getTelefone(), usuarioData.getManifestoDataModel().getManifesto(), new ApiManager.ApiCallback() {
+                    @Override
+                    public void onResponse(boolean authorized, String message) {
+                        if (authorized) {
+                            Log.d("GalleryFragment", "Dados enviados com sucesso!");
+                            Snackbar.make(binding.getRoot(), "Dados enviados com sucesso!", Snackbar.LENGTH_LONG).show();
+                            // Iniciar a LoadingActivity para visualização de progresso
+                            Intent intent = new Intent(getActivity(), LoadingActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Log.d("GalleryFragment", "Falha na autorização: " + message);
+                            Snackbar.make(binding.getRoot(), "Falha na autorização: " + message, Snackbar.LENGTH_LONG).show();
+                        }
+                    }
+                });
             } else {
                 Log.d("UsuarioData", "Nenhum usuário está logado.");
+                Snackbar.make(binding.getRoot(), "Usuário não está logado.", Snackbar.LENGTH_LONG).show();
             }
         });
-
-
-
-
 
         galleryViewModel.getNotas().observe(getViewLifecycleOwner(), notas -> {
             notaAdapter.setNotas(notas);
@@ -174,15 +185,13 @@ public class GalleryFragment extends Fragment {
                         ", ID do usuário: " + userId);
 
                 if (userId != -1) {
-                    // Criar uma nova Nota e adicionar ao ViewModel
-                    Nota nota;
-                    if (isContingency) {
-                        // Usar o construtor para contingência
-                        nota = new Nota(barcode, weight, value, chaveContingencia);
-                    } else {
-                        // Usar o construtor padrão
-                        nota = new Nota(barcode, weight, value);
-                    }
+                    // Criar uma nova NotaDataModel e adicionar ao ViewModel
+                    Nota nota = new Nota(
+                            barcode,
+                            weight,
+                            value,
+                            chaveContingencia
+                    );
                     galleryViewModel.addNota(nota);
                     databaseHelper.insertNota(nota, userId); // Passar o userId aqui
                     updateButtonVisibility();
@@ -198,32 +207,8 @@ public class GalleryFragment extends Fragment {
 
     private UserDataTransferModel getUserDataTransferModel(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
-        int id = dbHelper.getLoggedInUserId();
-
-        if (id == -1) {
-            return null; // Nenhum usuário está logado
-        }
-
-        UserDataModel usuarioDataModel = dbHelper.getLoggedInUserDetails();
-        List<NotaDataModel> notaDataModels = dbHelper.getAllNotas(id);
-        List<Nota> notas = new ArrayList<>();
-
-        // Converter NotaDataModel para Nota
-        for (NotaDataModel notaDataModel : notaDataModels) {
-            Nota nota = new Nota(
-                    notaDataModel.getChave(),
-                    notaDataModel.getPeso(),
-                    notaDataModel.getValor(),
-                    notaDataModel.getChave_Contingencia()
-            );
-            notas.add(nota);
-        }
-
-        ManifestoDataModel manifestoData = new ManifestoDataModel(dbHelper.getLastManifestoBarcode());
-
-        return new UserDataTransferModel(usuarioDataModel.getId(), usuarioDataModel.getTelefone(), usuarioDataModel.getCodigoValidacao(), manifestoData, notas);
+        return dbHelper.getUserDataTransferModel();
     }
-
 
     private int getLoggedInUserId() {
         return databaseHelper.getLoggedInUserId();

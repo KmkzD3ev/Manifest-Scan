@@ -4,13 +4,13 @@ public class NotaDataModel {
     private String chave;
     private String peso;
     private String valor;
-    private String chave_Contingencia;
+    private String chave_contingencia;
 
-    public NotaDataModel(String chave, String peso, String valor, String chave_Contingencia) {
+    public NotaDataModel(String chave, String peso, String valor, String chave_contingencia) {
         this.chave = chave;
         this.peso = peso;
         this.valor = valor;
-        this.chave_Contingencia = chave_Contingencia;
+        this.chave_contingencia = chave_contingencia;
     }
 
     public String getChave() {
@@ -26,6 +26,6 @@ public class NotaDataModel {
     }
 
     public String getChave_Contingencia() {
-        return chave_Contingencia;
+        return  chave_contingencia;
     }
 }

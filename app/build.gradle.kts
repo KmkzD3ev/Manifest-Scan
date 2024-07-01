@@ -60,6 +60,11 @@ dependencies {
     implementation ("org.simpleframework:simple-xml:2.7.1")
     implementation ("com.squareup.retrofit2:converter-simplexml:2.9.0")
     implementation ("com.airbnb.android:lottie:3.4.0")
+    // Dependências de teste unitário
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:3.12.4")
+    testImplementation ("androidx.test:core:1.4.0")
+    testImplementation ("org.robolectric:robolectric:4.7.3")
 
 
 
