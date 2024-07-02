@@ -48,7 +48,6 @@ public class SlideshowFragment extends Fragment {
 
         // Observa mensagens da API e exibe um Toast
         slideshowViewModel.getApiMessage().observe(getViewLifecycleOwner(), message -> {
-            dialogs.liberarDialog();
             if (!message.isEmpty()) {
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
@@ -59,18 +58,20 @@ public class SlideshowFragment extends Fragment {
             if (authorized) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     if (isAdded()) {
+                        dialogs.liberarDialog();
                         NavHostFragment.findNavController(SlideshowFragment.this).navigate(R.id.nav_gallery);
                     } else {
                         Log.e("SlideshowFragment", "Fragment not associated with FragmentManager");
                     }
                 }, 3000); // Delay para simular carregamento
+            } else {
+                dialogs.liberarDialog();
             }
         });
 
         // Configura o botão de scan para iniciar a leitura do código de barras
         binding.btnScan.setOnClickListener(v -> {
             IntentIntegrator.forSupportFragment(this).initiateScan();
-            dialogs.iniciarDialog();
         });
 
         return root;
@@ -84,6 +85,9 @@ public class SlideshowFragment extends Fragment {
             String scannedBarcode = result.getContents();
             Log.d("SlideshowFragment", "Scanned Code: " + scannedBarcode);
 
+            // Inicia o diálogo de carregamento
+            dialogs.iniciarDialog();
+
             // Obtém o timestamp atual
             String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
@@ -95,11 +99,17 @@ public class SlideshowFragment extends Fragment {
                 Toast.makeText(getContext(), "Erro ao salvar manifesto!", Toast.LENGTH_LONG).show();
             }
 
+            // Limpa as notas do usuário atual
+            int userId = databaseHelper.getLoggedInUserId();
+            if (userId != -1) {
+                databaseHelper.clearNotas(userId);
+            }
+
             // Lida com o resultado do scan no ViewModel
             slideshowViewModel.handleBarcodeResult(scannedBarcode);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
-            dialogs.liberarDialog();
         }
     }
+
 }

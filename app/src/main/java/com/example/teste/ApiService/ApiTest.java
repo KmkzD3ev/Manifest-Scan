@@ -25,7 +25,7 @@ public class ApiTest {
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 if (response.isSuccessful()) {
                     ServerResponse serverResponse = response.body();
-                    Log.d("ApiTest", "Response: " + serverResponse.getMessage());
+                    Log.d("ApiTest", "Response: " + serverResponse.getMessage() + " Code: " + serverResponse.getCode());
 
                     if ("SUCCESS".equals(serverResponse.getStatus()) && "000".equals(serverResponse.getCode())) {
                         callback.onResponse(true, serverResponse.getMessage());

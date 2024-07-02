@@ -47,18 +47,23 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    //Dependencias de material desing , livedata e viewmodel
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
     implementation ("androidx.cardview:cardview:1.0.0")
+    //Dependências Retrofit2
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-simplexml:2.9.0")
+    //Dependências ZXing
     implementation ("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation ("com.google.zxing:core:3.3.3")
+    //Dependências OkHttp
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3")
     implementation ("org.simpleframework:simple-xml:2.7.1")
-    implementation ("com.squareup.retrofit2:converter-simplexml:2.9.0")
+
     implementation ("com.airbnb.android:lottie:3.4.0")
     // Dependências de teste unitário
     testImplementation ("junit:junit:4.13.2")

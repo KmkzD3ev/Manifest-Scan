@@ -4,6 +4,8 @@
         android:font="@font/verdana"
         android:fontStyle="normal"
         android:fontWeight="400"/>
-
-
+    <font
+        android:font="@font/robotolight"
+        android:fontStyle="normal"
+        android:fontWeight="300"/> <!-- Certifique-se de que o peso da fonte esteja correto -->
 </font-family>

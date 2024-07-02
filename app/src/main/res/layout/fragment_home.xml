@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cinza"
+    android:background="@drawable/lg_mn"
     tools:context=".ui.home.HomeFragment">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="65dp"
         android:layout_marginBottom="136dp"
         android:gravity="center"
-        android:text="Scaneie o Codigo de barras para Iniciar a Validação"
+        android:text="Scaneie o Codigo de barras para Validar Manifesto"
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -27,14 +27,14 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/ciano"
-        android:text="Iniciar"
+        android:text="INICIAR"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.789" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

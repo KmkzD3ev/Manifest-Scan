@@ -1,5 +1,6 @@
 package com.example.teste.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.teste.MainActivity;
 import com.example.teste.R;
 
 public class LoadingActivity extends AppCompatActivity {
@@ -76,6 +79,19 @@ public class LoadingActivity extends AppCompatActivity {
 
             imageViewSmiley.setVisibility(View.VISIBLE); // Mostra a carinha feliz
             textViewCompletion.setVisibility(View.VISIBLE); // Mostra o texto "Tudo OK!"
+
+            // Adiciona um atraso para que o usuário possa ver a mensagem de conclusão
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Redireciona o usuário para a tela inicial
+                    Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish(); // Encerra a LoadingActivity
+                }
+            }, 2000); // Atraso de 2 segundos
         }
     }
+
 }

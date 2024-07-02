@@ -9,11 +9,11 @@
         android:id="@+id/checkcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter code" />
+        android:hint="Insira o código " />
 
     <Button
         android:id="@+id/confirmbtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Confirm" />
+        android:text="CONFIRMAR" />
 </LinearLayout>

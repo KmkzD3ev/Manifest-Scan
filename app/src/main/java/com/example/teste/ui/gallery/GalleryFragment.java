@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,7 +57,7 @@ public class GalleryFragment extends Fragment {
         Button btnScan = root.findViewById(R.id.btn_scan);
         RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
 
-        notaAdapter = new NotaAdapter(getContext(), new ArrayList<>());
+        notaAdapter = new NotaAdapter(getContext(), new ArrayList<>(), galleryViewModel);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(notaAdapter);
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -77,9 +78,9 @@ public class GalleryFragment extends Fragment {
                 String userDataJson = gson.toJson(usuarioData);
 
                 // Logar os dados para depuração
-                Log.d("UsuarioData", "ID: " + usuarioData.getId());
-                Log.d("UsuarioData", "Telefone: " + usuarioData.getTelefone());
-                Log.d("UsuarioData", "Manifesto: " + (usuarioData.getManifestoDataModel() != null ? usuarioData.getManifestoDataModel().getManifesto() : "N/A"));
+                Log.d("Gallery SEND", "ID: " + usuarioData.getId());
+                Log.d("Gallery SEND", "Telefone: " + usuarioData.getTelefone());
+                Log.d("Gallery SEND", "Manifesto: " + (usuarioData.getManifestoDataModel() != null ? usuarioData.getManifestoDataModel().getManifesto() : "N/A"));
 
                 // Logar detalhes das notas
                 if (usuarioData.getNotas() != null && !usuarioData.getNotas().isEmpty()) {
@@ -96,14 +97,21 @@ public class GalleryFragment extends Fragment {
                     @Override
                     public void onResponse(boolean authorized, String message) {
                         if (authorized) {
-                            Log.d("GalleryFragment", "Dados enviados com sucesso!");
-                            Snackbar.make(binding.getRoot(), "Dados enviados com sucesso!", Snackbar.LENGTH_LONG).show();
-                            // Iniciar a LoadingActivity para visualização de progresso
-                            Intent intent = new Intent(getActivity(), LoadingActivity.class);
-                            startActivity(intent);
+                            Log.d("GalleryFragment", "Dados enviados com sucesso!" + message);
+                            Toast.makeText(getContext(), " " + message, Toast.LENGTH_LONG).show();
+
+                            // Atraso para garantir que o Toast seja visível antes de iniciar a LoadingActivity
+                            new android.os.Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // Iniciar a LoadingActivity para visualização de progresso
+                                    Intent intent = new Intent(getActivity(), LoadingActivity.class);
+                                    startActivity(intent);
+                                }
+                            }, 3500); // Duração do Toast.LENGTH_LONG é de 3500 ms
                         } else {
-                            Log.d("GalleryFragment", "Falha na autorização: " + message);
-                            Snackbar.make(binding.getRoot(), "Falha na autorização: " + message, Snackbar.LENGTH_LONG).show();
+                            Log.d("Resposta do Envio Float", "Falha na autorização: " + message);
+                            Toast.makeText(getContext(), "ERROR: " + message, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -185,18 +193,24 @@ public class GalleryFragment extends Fragment {
                         ", ID do usuário: " + userId);
 
                 if (userId != -1) {
-                    // Criar uma nova NotaDataModel e adicionar ao ViewModel
-                    Nota nota = new Nota(
-                            barcode,
-                            weight,
-                            value,
-                            chaveContingencia
-                    );
-                    galleryViewModel.addNota(nota);
-                    databaseHelper.insertNota(nota, userId); // Passar o userId aqui
-                    updateButtonVisibility();
+                    // Verificar se a nota já existe
+                    if (notaExists(barcode)) {
 
-                    Snackbar.make(binding.getRoot(), "Nota salva com sucesso!", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(binding.getRoot(), "Nota já existe!", Snackbar.LENGTH_LONG).show();
+                    } else {
+                        // Criar uma nova Nota e adicionar ao ViewModel
+                        Nota nota = new Nota(
+                                barcode,
+                                weight,
+                                value,
+                                chaveContingencia
+                        );
+                        galleryViewModel.addNota(nota);
+                        databaseHelper.insertNota(nota, userId); // Passar o userId aqui
+                        updateButtonVisibility();
+
+                        Snackbar.make(binding.getRoot(), "Nota salva com sucesso!", Snackbar.LENGTH_LONG).show();
+                    }
                 } else {
                     Snackbar.make(binding.getRoot(), "Usuário não está logado. Nota não foi salva.", Snackbar.LENGTH_LONG).show();
                 }
@@ -204,6 +218,44 @@ public class GalleryFragment extends Fragment {
         });
         dialogFragment.show(getChildFragmentManager(), "custom_dialog");
     }
+
+    private boolean notaExists(String barcode) {
+        Log.d("notaExists", "Verificando existência da nota com barcode: " + barcode);
+
+        // Verificar no ViewModel
+        List<Nota> currentNotas = galleryViewModel.getNotas().getValue();
+        if (currentNotas != null) {
+            for (Nota nota : currentNotas) {
+                if (nota.getChave().equals(barcode)) {
+                    Log.d("notaExists", "Nota encontrada no ViewModel com barcode: " + barcode);
+                    return true;
+                }
+            }
+        } else {
+            Log.d("notaExists", "Nenhuma nota encontrada no ViewModel.");
+        }
+
+        // Verificar no banco de dados
+        int userId = getLoggedInUserId();
+        Log.d("notaExists", "ID do usuário logado: " + userId);
+        if (userId != -1) {
+            List<NotaDataModel> notas = databaseHelper.getAllNotas(userId);
+            for (NotaDataModel nota : notas) {
+                if (nota.getChave().equals(barcode)) {
+                    Log.d("notaExists", "Nota encontrada no banco de dados com barcode: " + barcode);
+                    return true;
+                }
+            }
+            Log.d("notaExists", "Nenhuma nota encontrada no banco de dados para o usuário: " + userId);
+        } else {
+            Log.d("notaExists", "Nenhum usuário logado.");
+        }
+
+        Log.d("notaExists", "Nota com barcode: " + barcode + " não encontrada.");
+        return false;
+    }
+
+
 
     private UserDataTransferModel getUserDataTransferModel(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
@@ -220,3 +272,4 @@ public class GalleryFragment extends Fragment {
         binding = null;
     }
 }
+

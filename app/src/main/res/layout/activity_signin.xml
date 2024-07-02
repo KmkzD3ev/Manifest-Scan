@@ -14,82 +14,75 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/CINZA_ESCURO"
+        android:background="@color/cinza"
         android:orientation="vertical"
         tools:context=".Views.SingIn">
 
 
         <ImageView
             android:layout_width="380dp"
-            android:layout_height="400dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo_boa">
+            android:layout_marginTop="50dp"
+            android:src="@drawable/emissor_logo_fotor_bg_remover_2024070316413">
 
         </ImageView>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/contiD"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:textColorHint="@color/ciano"
-            app:boxStrokeColor="@color/black"
             app:errorEnabled="true"
             app:helperTextEnabled="true"
+            android:layout_marginTop="50dp"
             app:helperTextTextColor="@color/ciano"
-            app:hintTextColor="@color/white">
+            app:hintTextColor="@color/black"
+            app:boxBackgroundMode="none"
+            android:background="@android:color/transparent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ediId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="20dp"
-
+               android:layout_marginStart="40dp"
                 android:hint="      Codigo Licença"
                 android:inputType="textEmailAddress"
-                android:textColor="@color/white"
-                android:textCursorDrawable="@drawable/color_cursor">
-
-
+                android:textColor="@color/black"
+                android:textCursorDrawable="@drawable/color_cursor"
+                android:background="@drawable/edit_text_underline"
+                android:singleLine="true"
+                android:lines="1">
             </com.google.android.material.textfield.TextInputEditText>
-
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/contSenha"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:textColorHint="@color/ciano"
-            app:boxStrokeColor="@color/black"
             app:errorEnabled="true"
-
             app:helperTextEnabled="true"
             app:helperTextTextColor="@color/ciano"
-            app:hintTextColor="@color/white">
+            app:hintTextColor="@color/black"
+            app:boxBackgroundMode="none"
+            android:background="@android:color/transparent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editphone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="50dp"
                 android:layout_marginEnd="20dp"
-                android:hint="      telefone"
-                android:inputType="phone"
-
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
+                android:hint="      Telefone"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 android:textCursorDrawable="@drawable/color_cursor"
-
-                >
-
-
+                android:background="@drawable/edit_text_underline"
+                android:singleLine="true"
+                android:lines="1">
             </com.google.android.material.textfield.TextInputEditText>
-
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,9 +93,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="48dp"
-            android:backgroundTint="@color/white"
-            android:text="Login"
-            android:textColor="@color/ciano" />
+            android:backgroundTint="@color/ciano"
+            android:text="LOGIN"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
 
     </LinearLayout>

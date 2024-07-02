@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.teste.Validation.Model.ManifestoDataModel;
 import com.example.teste.Validation.Model.Nota;
@@ -186,11 +187,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Deleta uma nota específica da tabela de notas
-    public void deleteNota(int id) {
+    public void deleteNota(String barcode) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NOTAS, COLUMN_NOTA_ID + " = ?", new String[]{String.valueOf(id)});
+        int rowsAffected = db.delete(TABLE_NOTAS, COLUMN_NOTA_BARCODE + " = ?", new String[]{barcode});
         db.close();
+        Log.d("DatabaseHelper", "Nota removida do banco de dados, Barcode: " + barcode + ", Linhas afetadas: " + rowsAffected);
     }
+
+
 
     // Insere um novo manifesto na tabela de manifestos
     public long insertManifesto(String barcode, String timestamp) {
@@ -305,5 +309,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return null;
     }
+
+
+    // Deleta todas as notas de um usuário específico
+    public void clearNotas(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTAS, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userId)});
+        db.close();
+    }
+
 
 }

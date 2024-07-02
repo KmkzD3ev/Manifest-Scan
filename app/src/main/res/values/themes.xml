@@ -13,8 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <!-- Font family -->
-        <item name="android:fontFamily">@font/verdana</item>
-        <item name="fontFamily">@font/verdana</item>
+        <item name="android:fontFamily">@font/robotolight</item>
+        <item name="fontFamily">@font/robotolight</item>
     </style>
 
     <style name="Theme.Teste.NoActionBar">

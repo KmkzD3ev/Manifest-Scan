@@ -1,4 +1,9 @@
+
+
+
 package com.example.teste.ui.gallery;
+
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -26,4 +31,13 @@ public class GalleryViewModel extends ViewModel {
         currentNotas.add(nota);
         notasLiveData.setValue(currentNotas);
     }
+    public void removeNota(Nota nota) {
+        List<Nota> currentNotas = notasLiveData.getValue();
+        if (currentNotas != null) {
+            currentNotas.remove(nota);
+            notasLiveData.setValue(currentNotas);
+            Log.d("GalleryViewModel", "Nota removida: " + nota.getChave());
+        }
+    }
+
 }
