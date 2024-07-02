@@ -92,7 +92,7 @@ public class GalleryFragment extends Fragment {
                 }
 
                 // Chamada à API
-                ApiManager.testApiCall(getContext(), usuarioData.getId(), usuarioData.getTelefone(), usuarioData.getManifestoDataModel().getManifesto(), new ApiManager.ApiCallback() {
+                ApiManager.testApiCall(getContext(), new ApiManager.ApiCallback() {
                     @Override
                     public void onResponse(boolean authorized, String message) {
                         if (authorized) {
