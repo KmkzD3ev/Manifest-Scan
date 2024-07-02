@@ -185,24 +185,49 @@ public class GalleryFragment extends Fragment {
                         ", ID do usuário: " + userId);
 
                 if (userId != -1) {
-                    // Criar uma nova NotaDataModel e adicionar ao ViewModel
-                    Nota nota = new Nota(
-                            barcode,
-                            weight,
-                            value,
-                            chaveContingencia
-                    );
-                    galleryViewModel.addNota(nota);
-                    databaseHelper.insertNota(nota, userId); // Passar o userId aqui
-                    updateButtonVisibility();
+                    // Verificar se a nota já existe
+                    if (notaExists(barcode)) {
+                        Snackbar.make(binding.getRoot(), "Nota já existe!", Snackbar.LENGTH_LONG).show();
+                    } else {
+                        // Criar uma nova Nota e adicionar ao ViewModel
+                        Nota nota = new Nota(
+                                barcode,
+                                weight,
+                                value,
+                                chaveContingencia
+                        );
+                        galleryViewModel.addNota(nota);
+                        databaseHelper.insertNota(nota, userId); // Passar o userId aqui
+                        updateButtonVisibility();
 
-                    Snackbar.make(binding.getRoot(), "Nota salva com sucesso!", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(binding.getRoot(), "Nota salva com sucesso!", Snackbar.LENGTH_LONG).show();
+                    }
                 } else {
                     Snackbar.make(binding.getRoot(), "Usuário não está logado. Nota não foi salva.", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
         dialogFragment.show(getChildFragmentManager(), "custom_dialog");
+    }
+
+    private boolean notaExists(String barcode) {
+        // Verificar no ViewModel
+        for (Nota nota : galleryViewModel.getNotas().getValue()) {
+            if (nota.getChave().equals(barcode)) {
+                return true;
+            }
+        }
+        // Verificar no banco de dados
+        int userId = getLoggedInUserId();
+        if (userId != -1) {
+            List<NotaDataModel> notas = databaseHelper.getAllNotas(userId);
+            for (NotaDataModel nota : notas) {
+                if (nota.getChave().equals(barcode)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private UserDataTransferModel getUserDataTransferModel(Context context) {

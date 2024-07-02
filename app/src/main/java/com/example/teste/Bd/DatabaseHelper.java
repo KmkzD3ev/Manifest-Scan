@@ -306,4 +306,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
+
+    public void clearNotas(int userId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTAS, COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userId)});
+        db.close();
+    }
+
 }
