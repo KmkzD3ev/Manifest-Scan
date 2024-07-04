@@ -1,6 +1,4 @@
 
-
-
 package com.example.EmissorMdfe.ui.gallery;
 
 import android.util.Log;

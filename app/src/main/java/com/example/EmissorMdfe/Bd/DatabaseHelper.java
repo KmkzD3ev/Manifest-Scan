@@ -97,6 +97,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MANIFESTOS_TABLE);
     }
 
+//ATUALIZAÇÃO DA TABELA
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Recria todas as tabelas
@@ -242,6 +243,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return -1; // Retornar -1 se nenhum usuário estiver logado
     }
 
+
+// Método para obter os detalhes do usuário logado
     public UserDataModel getLoggedInUserDetails() {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {COLUMN_ID, COLUMN_PHONE_NUMBER};
@@ -298,6 +301,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return notas;
     }
 
+    //OBTEM OS DADOS DO USUARIO LOGADO PARA ENVIO DO MANIFESTO
     public UserDataTransferModel getUserDataTransferModel() {
         int userId = getLoggedInUserId();
         if (userId != -1) {

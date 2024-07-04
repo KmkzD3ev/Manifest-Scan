@@ -139,6 +139,7 @@ public class GalleryFragment extends Fragment {
         return root;
     }
 
+    //ATUALIZA A INTERFACE DE ACORDO COM A QUANTIDADE DE NOTAS
     private void updateButtonVisibility() {
         FloatingActionButton fabAdditionalAction = binding.fabAdditionalAction;
         if (notaAdapter.getItemCount() > 0) {
@@ -148,6 +149,7 @@ public class GalleryFragment extends Fragment {
         }
     }
 
+    //Processa o resultado do scan realizado pelo btn_scan
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -219,6 +221,7 @@ public class GalleryFragment extends Fragment {
         dialogFragment.show(getChildFragmentManager(), "custom_dialog");
     }
 
+    //Verifica se a nota já existe no ViewModel ou no banco de dados para evitar duplicicidades
     private boolean notaExists(String barcode) {
         Log.d("notaExists", "Verificando existência da nota com barcode: " + barcode);
 
@@ -256,7 +259,7 @@ public class GalleryFragment extends Fragment {
     }
 
 
-
+   //obtem o conjunto de dados do usuário logado
     private UserDataTransferModel getUserDataTransferModel(Context context) {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
         return dbHelper.getUserDataTransferModel();
