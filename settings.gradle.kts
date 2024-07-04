@@ -21,6 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "teste"
+rootProject.name = "EmissorMdfe"
 include(":app")
  

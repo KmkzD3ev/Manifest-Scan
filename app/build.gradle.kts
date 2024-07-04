@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.teste"
+    namespace = "com.example.EmissorMdfe"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.teste"
+        applicationId = "com.example.EmissorMdfe"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
