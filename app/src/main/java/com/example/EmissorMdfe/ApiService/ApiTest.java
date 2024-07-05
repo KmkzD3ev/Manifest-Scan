@@ -9,10 +9,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//Api para validaçao de manifesto com o servidor
 public class ApiTest {
     public interface ApiCallback {
         void onResponse(boolean authorized, String message);
     }
+    /**
+     * Método que faz a chamada de API para validar um manifesto.
+     * @param context O contexto da aplicação.
+     * @param id O ID do usuário.
+     * @param phoneNumber O número de telefone do usuário.
+     * @param barcodeResult O código de barras do manifesto.
+     * @param callback O callback para processar a resposta da API.
+     */
 
     public static void testApiCall(Context context, int id, String phoneNumber, String barcodeResult, ApiCallback callback) {
         ApiService apiService = RetrofitClient.getInstance();

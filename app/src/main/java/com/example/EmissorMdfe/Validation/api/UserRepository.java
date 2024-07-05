@@ -12,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// Classe responsável por gerenciar as operações de autenticação de usuário e acesso ao banco de dados
 public class UserRepository {
     private ApiService apiService;
     private DatabaseHelper databaseHelper;
@@ -20,7 +21,12 @@ public class UserRepository {
         apiService = RetrofitClient.getInstance();
         databaseHelper = new DatabaseHelper(MyApplication.getContext());
     }
-
+    /**
+     * Autentica o usuário chamando a API de autenticação.
+     * @param id O ID do usuário.
+     * @param phoneNumber O número de telefone do usuário.
+     * @param userResponseLiveData O LiveData que será atualizado com a resposta da API.
+     */
     public void authenticateUser(String id, String phoneNumber, MutableLiveData<UserResponse> userResponseLiveData) {
         Log.d("UserRepository", "Chamando API de autenticação para ID: " + id + " e Telefone: " + phoneNumber);
         apiService.authenticateUser(id, phoneNumber).enqueue(new Callback<UserResponse>() {
@@ -41,6 +47,8 @@ public class UserRepository {
                 }
             }
 
+
+
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Log.e("UserRepository", "Falha na chamada da API", t);
@@ -48,6 +56,11 @@ public class UserRepository {
             }
         });
     }
+    /**
+     * Obtém o código de validação armazenado para um usuário específico.
+     * @param username O nome de usuário (ID do usuário em formato String).
+     * @return O código de validação armazenado.
+     */
 
     public String getStoredValidationCode(String username) {
         // Converte o ID de String para int antes de passar para getValidationCode

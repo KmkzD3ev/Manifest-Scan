@@ -15,7 +15,7 @@ import retrofit2.Response;
 
 
 /**
- * Gerencia chamadas de API para autorização de manifestos utilizando Retrofit.
+ * Gerencia chamadas de API para autorização de manifestos e conjunto de dados do ususario utilizando Retrofit.
  */
 public class ApiManager {
     public interface ApiCallback { //Callback para comunicação com a API Interno da Classe
@@ -24,7 +24,7 @@ public class ApiManager {
 
 
     /**
-     * Realiza uma chamada de API para verificar a autorização de um manifesto.
+     * Realiza uma chamada de API para verificar a autorização de um manifesto,notas e dados do usuário.
      *
      * @param context Contexto da aplicação usado para acessar recursos locais.
      * @param callback Callback para notificar o resultado da chamada da API.
