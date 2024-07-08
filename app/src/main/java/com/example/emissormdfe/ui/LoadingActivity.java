@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.emissormdfe.MainActivity;
 
+import br.com.zenitech.emissormdfe.R;
+
 
 public class LoadingActivity extends AppCompatActivity {
 
@@ -22,10 +24,10 @@ public class LoadingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.activity_loading);
+        setContentView(R.layout.activity_loading);
 
-        progressBar = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.progressBar);
-        textViewStage = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.textViewStage);
+        progressBar = findViewById(R.id.progressBar);
+        textViewStage = findViewById(R.id.textViewStage);
         progressBar.setMax(100); // Definir o máximo da ProgressBar
 
         Thread progressThread = new Thread(new Runnable() {
@@ -74,8 +76,8 @@ public class LoadingActivity extends AppCompatActivity {
             progressBar.setVisibility(View.GONE); // Esconde a ProgressBar
             textViewStage.setVisibility(View.GONE); // Esconde o texto de estágio
 
-            ImageView imageViewSmiley = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.imageViewSmiley);
-            TextView textViewCompletion = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.textViewCompletion);
+            ImageView imageViewSmiley = findViewById(R.id.imageViewSmiley);
+            TextView textViewCompletion = findViewById(R.id.textViewCompletion);
 
             imageViewSmiley.setVisibility(View.VISIBLE); // Mostra a carinha feliz
             textViewCompletion.setVisibility(View.VISIBLE); // Mostra o texto "Tudo OK!"

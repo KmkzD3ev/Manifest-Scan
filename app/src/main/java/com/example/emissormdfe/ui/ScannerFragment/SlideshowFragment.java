@@ -25,7 +25,9 @@ import com.google.zxing.integration.android.IntentResult;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.databinding.FragmentSlideshowBinding;
+import br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.databinding.FragmentSlideshowBinding;
+
 
 public class SlideshowFragment extends Fragment {
 
@@ -60,7 +62,7 @@ public class SlideshowFragment extends Fragment {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
                     if (isAdded()) {
                         dialogs.liberarDialog();
-                        NavHostFragment.findNavController(SlideshowFragment.this).navigate(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.nav_gallery);
+                        NavHostFragment.findNavController(SlideshowFragment.this).navigate(R.id.nav_gallery);
                     } else {
                         Log.e("SlideshowFragment", "Fragment not associated with FragmentManager");
                     }

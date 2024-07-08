@@ -26,7 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.R;
 
 
 public class CustomDialogFragment extends DialogFragment {

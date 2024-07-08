@@ -25,6 +25,8 @@ import com.journeyapps.barcodescanner.ViewfinderView;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.zenitech.emissormdfe.R;
+
 /**
  * Custom Scannner Activity extending from Activity to display a custom layout form scanner view.*/
 
@@ -38,13 +40,13 @@ public class CustomScannerActivity extends Activity implements DecoratedBarcodeV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.activity_custom_scanner);
+        setContentView(R.layout.activity_custom_scanner);
 
         setupScannerView();
-        barcodeScannerView = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.zxing_barcode_scanner);
+        barcodeScannerView = findViewById(R.id.zxing_barcode_scanner);
         barcodeScannerView.setTorchListener(this);
 
-        switchFlashlightButton = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.switch_flashlight);
+        switchFlashlightButton = findViewById(R.id.switch_flashlight);
 
         if (!hasFlash()) {
             switchFlashlightButton.setVisibility(View.GONE);
@@ -101,7 +103,7 @@ public class CustomScannerActivity extends Activity implements DecoratedBarcodeV
     }
 
     private void setupScannerView() {
-        barcodeScannerView = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.zxing_barcode_scanner);
+        barcodeScannerView = findViewById(R.id.zxing_barcode_scanner);
         barcodeScannerView.setTorchListener(this);
 
         // Configure o decoder para suportar todos os formatos
@@ -148,7 +150,7 @@ public class CustomScannerActivity extends Activity implements DecoratedBarcodeV
     }
 
     public void switchFlashlight(View view) {
-        if (getString(br.com.zenitech.br.com.zenitech.emissormdfe.R.string.turn_off_flashlight).equals(switchFlashlightButton.getText())) {
+        if (getString(R.string.turn_off_flashlight).equals(switchFlashlightButton.getText())) {
             barcodeScannerView.setTorchOn();
         } else {
             barcodeScannerView.setTorchOff();
@@ -157,12 +159,12 @@ public class CustomScannerActivity extends Activity implements DecoratedBarcodeV
 
     @Override
     public void onTorchOn() {
-        switchFlashlightButton.setText(br.com.zenitech.br.com.zenitech.emissormdfe.R.string.turn_off_flashlight);
+        switchFlashlightButton.setText(R.string.turn_off_flashlight);
     }
 
     @Override
     public void onTorchOff() {
-        switchFlashlightButton.setText(br.com.zenitech.br.com.zenitech.emissormdfe.R.string.turn_off_flashlight);
+        switchFlashlightButton.setText(R.string.turn_off_flashlight);
     }
 
     @Override

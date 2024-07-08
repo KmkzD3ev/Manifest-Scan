@@ -14,6 +14,8 @@ import com.example.emissormdfe.MainActivity;
 
 import com.example.emissormdfe.Validation.ViewModel.UserViewModel;
 
+import br.com.zenitech.emissormdfe.R;
+
 public class ActivityVal extends AppCompatActivity {
     private UserViewModel userViewModel;
     private DatabaseHelper databaseHelper;
@@ -23,7 +25,7 @@ public class ActivityVal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.activity_val);
+        setContentView(R.layout.activity_val);
 
         databaseHelper = new DatabaseHelper(this);
         userId = Integer.parseInt(getIntent().getStringExtra("id")); // Converte o ID para inteiro
@@ -31,8 +33,8 @@ public class ActivityVal extends AppCompatActivity {
 
         Log.d("ActivityVal", "Codigo de validacao recebido: " + codigoValidacao);
 
-        EditText codeEditText = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.checkcode);
-        Button confirmButton = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.confirmbtn);
+        EditText codeEditText = findViewById(R.id.checkcode);
+        Button confirmButton = findViewById(R.id.confirmbtn);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
@@ -40,7 +42,7 @@ public class ActivityVal extends AppCompatActivity {
             String code = codeEditText.getText().toString();
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ActivityVal.this);
-            builder.setView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.dialog_carregamento);
+            builder.setView(R.layout.dialog_carregamento);
             AlertDialog loadingDialog = builder.create();
             loadingDialog.show();
 

@@ -21,7 +21,8 @@ import com.example.emissormdfe.ui.gallery.GalleryViewModel;
 
 import java.util.List;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.R;
+
 
 /**
  * Adapter para gerenciar a exibição de uma lista de notas em um RecyclerView.

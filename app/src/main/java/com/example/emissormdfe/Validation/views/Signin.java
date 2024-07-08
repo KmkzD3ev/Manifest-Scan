@@ -14,6 +14,8 @@ import com.example.emissormdfe.MainActivity;
 import com.example.emissormdfe.Validation.ViewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
+import br.com.zenitech.emissormdfe.R;
+
 public class Signin extends AppCompatActivity {
     public UserViewModel userViewModel;
     public DatabaseHelper databaseHelper;
@@ -21,7 +23,7 @@ public class Signin extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.activity_signin);
+        setContentView(R.layout.activity_signin);
 
         databaseHelper = new DatabaseHelper(this);
 
@@ -32,9 +34,9 @@ public class Signin extends AppCompatActivity {
             return;
         }
 
-        TextInputEditText idEditText = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.ediId);
-        TextInputEditText phoneEditText = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.editphone);
-        Button buttonLogin = findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.btlogar);
+        TextInputEditText idEditText = findViewById(R.id.ediId);
+        TextInputEditText phoneEditText = findViewById(R.id.editphone);
+        Button buttonLogin = findViewById(R.id.btlogar);
 
         phoneEditText.addTextChangedListener(MaskEditUtil.mask(phoneEditText, MaskEditUtil.FORMAT_FONE));
 
@@ -49,7 +51,7 @@ public class Signin extends AppCompatActivity {
             userViewModel.authenticateUser(id, phoneNumber);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(Signin.this);
-            builder.setView(br.com.zenitech.br.com.zenitech.emissormdfe.R.layout.dialog_carregamento);
+            builder.setView(R.layout.dialog_carregamento);
             AlertDialog loadingDialog = builder.create();
             loadingDialog.show();
 

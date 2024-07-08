@@ -36,8 +36,8 @@ import com.google.zxing.integration.android.IntentResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.R;
-import br.com.zenitech.br.com.zenitech.emissormdfe.databinding.FragmentGalleryBinding;
+import br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.databinding.FragmentGalleryBinding;
 
 public class GalleryFragment extends Fragment {
 

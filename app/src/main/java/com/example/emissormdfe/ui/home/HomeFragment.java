@@ -11,7 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.databinding.FragmentHomeBinding;
+import br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.databinding.FragmentHomeBinding;
 
 
 public class HomeFragment extends Fragment {
@@ -28,9 +29,9 @@ public class HomeFragment extends Fragment {
 
 
 
-        Button btLogar = root.findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.btlogar);
+        Button btLogar = root.findViewById(R.id.btlogar);
         btLogar.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.nav_slideshow);
+            NavHostFragment.findNavController(this).navigate(R.id.nav_slideshow);
         });
 
 

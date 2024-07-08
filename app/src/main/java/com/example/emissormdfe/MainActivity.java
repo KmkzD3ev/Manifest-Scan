@@ -13,8 +13,9 @@ import com.example.emissormdfe.Bd.DatabaseHelper;
 
 import com.google.android.material.navigation.NavigationView;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.R;
-import br.com.zenitech.br.com.zenitech.emissormdfe.databinding.ActivityMainBinding;
+import br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.databinding.ActivityMainBinding;
+
 
 public class MainActivity extends AppCompatActivity {
 

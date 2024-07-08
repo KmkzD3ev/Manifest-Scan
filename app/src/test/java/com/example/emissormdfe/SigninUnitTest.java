@@ -24,6 +24,8 @@ import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 import org.robolectric.annotation.Config;
 
+import br.com.zenitech.emissormdfe.R;
+
 @RunWith(RobolectricTestRunner.class)
 @Config(sdk = {Build.VERSION_CODES.O_MR1}, manifest = Config.NONE)
 
@@ -56,7 +58,7 @@ public class SigninUnitTest {
         userResponseLiveData.postValue(mockResponse);
 
         // Simula o usuário clicando no botão de login
-        activity.findViewById(br.com.zenitech.br.com.zenitech.emissormdfe.R.id.btlogar).performClick();
+        activity.findViewById(R.id.btlogar).performClick();
 
         // Verifica se a atividade foi encerrada e a próxima foi iniciada corretamente
         assertTrue(activity.isFinishing());

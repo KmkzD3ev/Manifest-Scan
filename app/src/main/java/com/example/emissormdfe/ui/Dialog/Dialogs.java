@@ -3,7 +3,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
 
-import br.com.zenitech.br.com.zenitech.emissormdfe.R;
+import br.com.zenitech.emissormdfe.R;
 
 
 public class Dialogs {
