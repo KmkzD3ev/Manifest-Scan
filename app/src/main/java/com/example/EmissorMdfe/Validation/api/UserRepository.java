@@ -34,7 +34,7 @@ public class UserRepository {
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
                     UserResponse userResponse = response.body();
-                    Log.d("UserRepository", "Resposta da API recebida: " + userResponse.toString());
+                    Log.d("Api Validation", "Response: " + userResponse.getMessage() + " Code: " + userResponse.getCode());
                     userResponseLiveData.setValue(userResponse);
                 } else {
                     try {
