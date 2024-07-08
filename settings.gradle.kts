@@ -21,6 +21,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "EmissorMdfe"
+rootProject.name = "br.com.zenitech.emissormdfe"
 include(":app")
  

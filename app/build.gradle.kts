@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.EmissorMdfe"
+    namespace = "br.com.zenitech.br.com.zenitech.emissormdfe"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.EmissorMdfe"
+        applicationId = "br.com.zenitech.br.com.zenitech.emissormdfe"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
