@@ -11,9 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import br.com.zenitech.emissormdfe.Bd.DatabaseHelper;
 import br.com.zenitech.emissormdfe.MainActivity;
-
 import br.com.zenitech.emissormdfe.Validation.ViewModel.UserViewModel;
-
 import br.com.zenitech.emissormdfe.R;
 
 public class ActivityVal extends AppCompatActivity {
@@ -41,25 +39,37 @@ public class ActivityVal extends AppCompatActivity {
         confirmButton.setOnClickListener(view -> {
             String code = codeEditText.getText().toString();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityVal.this);
-            builder.setView(R.layout.dialog_carregamento);
-            AlertDialog loadingDialog = builder.create();
-            loadingDialog.show();
+            if (codigoValidacao.equals(code)) {
+                Log.d("ActivityVal", "Código de validação correto");
 
-            userViewModel.validateCode(String.valueOf(userId), code);
+                databaseHelper.setLoggedIn(userId, true);
+                Toast.makeText(ActivityVal.this, "Code confirmado com sucesso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityVal.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Log.d("ActivityVal", "Código de validação incorreto, chamando API para validação");
 
-            userViewModel.getValidationResult().observe(this, validationResult -> {
-                loadingDialog.dismiss();
-                if (validationResult != null && validationResult) {
-                    databaseHelper.setLoggedIn(userId, true);
-                    Toast.makeText(ActivityVal.this, "Code confirmado com sucesso", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ActivityVal.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(ActivityVal.this, "Código de validação incorreto", Toast.LENGTH_SHORT).show();
-                }
-            });
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityVal.this);
+                builder.setView(R.layout.dialog_carregamento);
+                AlertDialog loadingDialog = builder.create();
+                loadingDialog.show();
+
+                userViewModel.validateCode(String.valueOf(userId), code);
+
+                userViewModel.getValidationResult().observe(this, validationResult -> {
+                    loadingDialog.dismiss();
+                    if (validationResult != null && validationResult) {
+                        databaseHelper.setLoggedIn(userId, true);
+                        Toast.makeText(ActivityVal.this, "Code confirmado com sucesso", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ActivityVal.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(ActivityVal.this, "Código de validação incorreto", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
     }
 }
