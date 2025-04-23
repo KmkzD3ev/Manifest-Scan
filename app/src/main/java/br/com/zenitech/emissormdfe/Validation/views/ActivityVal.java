@@ -29,7 +29,7 @@ public class ActivityVal extends AppCompatActivity {
         userId = Integer.parseInt(getIntent().getStringExtra("id")); // Converte o ID para inteiro
         codigoValidacao = getIntent().getStringExtra("codigo_validacao");
 
-        Log.d("ActivityVal", "Codigo de validacao recebido: " + codigoValidacao);
+        Log.d("ActivityVal", "Codigo de validacao recebido da Api: " + codigoValidacao);
 
         EditText codeEditText = findViewById(R.id.checkcode);
         Button confirmButton = findViewById(R.id.confirmbtn);

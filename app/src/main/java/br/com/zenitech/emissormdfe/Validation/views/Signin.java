@@ -14,6 +14,12 @@ import br.com.zenitech.emissormdfe.Validation.ViewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import br.com.zenitech.emissormdfe.R;
 
+/*
+**CODIGO DE LICENÇA = ID EMISSOR VALIDO
+* O NUMERO DO TELEFONE DEVE ESTAR ATREALDO AO ID PRA RECEBER
+* O CODIGO DE VALIDAÇAO VIA WHATSAPP
+ */
+
 public class Signin extends AppCompatActivity {
     public UserViewModel userViewModel;
     public DatabaseHelper databaseHelper;
@@ -57,7 +63,8 @@ public class Signin extends AppCompatActivity {
                 intent.putExtra("codigo_validacao", codigoValidacao); // Passa o código de validação
                 startActivity(intent);
                 finish();
-            } else {
+            }
+            else{
                 Log.d("Signin", "Chamando API de autenticação");
                 userViewModel.authenticateUser(id, phoneNumber);
 
@@ -88,7 +95,7 @@ public class Signin extends AppCompatActivity {
                         Toast.makeText(Signin.this, "ERROR: Id ou Telefone inválido", Toast.LENGTH_LONG).show();
                     }
                 });
-            }
+              }
         });
 
     }
