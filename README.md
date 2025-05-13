@@ -115,6 +115,28 @@ Os ViewModels são responsáveis por preparar e gerenciar os dados para a View, 
 LiveData:
 LiveData é usado para observar e reagir a mudanças nos dados, permitindo que as atividades e fragmentos reajam automaticamente às mudanças no estado dos dados.
 
+
+## 📷 Telas do Aplicativo
+
+### 1. Tela de Login
+![Tela 1](./assets/tutorial/tutorial_img_1.jpg)
+
+### 2. Confirmação de Código
+![Tela 2](./assets/tutorial/tutorial_img_2.jpg)
+
+### 3. Scanner do Manifesto
+![Tela 3](./assets/tutorial/tutorial_img_3.jpg)
+
+### 4. Notas Preenchidas
+![Tela 4](./assets/tutorial/tutorial_img_4.jpg)
+
+### 5. Preenchimento da Nota
+![Tela 5](./assets/tutorial/tutorial_img_5.jpg)
+
+### 6. Tela Vazia de Notas
+![Tela 6](./assets/tutorial/tutorial_img_6.jpg)
+
+
 7. Modularização com Retrofit
 
 As chamadas de API foram modularizadas usando classes separadas do Retrofit para uma melhor organização e manutenção do código.
