@@ -119,22 +119,23 @@ LiveData é usado para observar e reagir a mudanças nos dados, permitindo que a
 ## 📷 Telas do Aplicativo
 
 ### 1. Tela de Login
-![Tela 1](./assets/tutorial/tutorial_img_1.jpg)
+![Tela 1](tutorial_img_1.jpg)
 
 ### 2. Confirmação de Código
-![Tela 2](./assets/tutorial/tutorial_img_2.jpg)
+![Tela 2](tutorial_img_2.jpg)
 
 ### 3. Scanner do Manifesto
-![Tela 3](./assets/tutorial/tutorial_img_3.jpg)
+![Tela 3](tutorial_img_3.jpg)
 
 ### 4. Notas Preenchidas
-![Tela 4](./assets/tutorial/tutorial_img_4.jpg)
+![Tela 4](tutorial_img_4.jpg)
 
 ### 5. Preenchimento da Nota
-![Tela 5](./assets/tutorial/tutorial_img_5.jpg)
+![Tela 5](tutorial_img_5.jpg)
 
 ### 6. Tela Vazia de Notas
-![Tela 6](./assets/tutorial/tutorial_img_6.jpg)
+![Tela 6](tutorial_img_6.jpg)
+
 
 
 7. Modularização com Retrofit
